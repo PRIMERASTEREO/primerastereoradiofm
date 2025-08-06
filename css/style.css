@@ -1,0 +1,505 @@
+@charset 'utf-8';
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,300;1,800&display=swap');
+@import url('bootstrap.min.css');
+
+/* GENERAL RESET & BASE */
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%; /* Asegura que ocupen todo el ancho */
+    height: 100%; /* Asegura que ocupen toda la altura */
+    overflow-x: hidden; /* Evita scroll horizontal no deseado */
+}
+
+body {
+    display: flex;
+    flex-direction: column; /* Apila los elementos verticalmente */
+    justify-content: flex-start; /* Alinea el contenido al inicio (arriba) */
+    align-items: center; /* Centra el contenido horizontalmente */
+    min-height: 100vh; /* Asegura que el body siempre tome al menos el 100% de la altura del viewport */
+    background-color: transparent; /* Fundamental para que el fondo de la página padre se vea */
+    font-family: 'Poppins', sans-serif;
+    color: #fefefe; /* Color de texto base */
+}
+
+/* BACKGROUND COVER (dentro del reproductor) */
+.cover-site {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; /* Ocupa el 100% de la altura del body del iframe */
+    overflow: hidden;
+    z-index: 1;
+}
+
+#bgCover {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center 20%;
+    filter: blur(20px);
+    transform: scale(1.2);
+    transition: all .5s ease-in-out;
+}
+
+.bg-mask {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.4);
+    z-index: 2;
+}
+
+/* MAIN CONTENT AREA */
+main {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Alinea el contenido al inicio (arriba) */
+    align-items: center;
+    width: 100%;
+    max-width: 600px; /* Limita el ancho máximo del reproductor */
+    padding: 15px;
+    box-sizing: border-box;
+    flex-grow: 1; /* Permite que el main ocupe el espacio disponible */
+    min-height: 0; /* Permite que el elemento se encoja dentro de flexbox si es necesario */
+}
+
+#player {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-grow: 1; /* Permite que el #player ocupe el espacio disponible */
+    min-height: 0; /* Importante para que los hijos flexibles se ajusten */
+}
+
+.web-player {
+    width: 100%;
+    display: flex;
+    flex-direction: column; /* Por defecto apilado para móviles */
+    align-items: center;
+    padding: 10px;
+    box-sizing: border-box;
+    flex-grow: 0; /* Permite que el .web-player ocupe el espacio disponible */
+    min-height: 0; /* Importante para que los hijos flexibles se ajusten */
+}
+
+/* COVER ALBUM */
+.cover-album {
+    width: 100%;
+    max-width: 500px;
+    margin: 0  20px ;
+    border: 2px solid #fefefe;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    position: relative;
+    padding-top: 100%; /* Truco para mantener la proporción 1:1 (cuadrado) */
+    height: 0;
+    overflow: hidden;
+    flex-shrink: 0; /* Evita que se encoja para mantener el aspecto */
+}
+
+#currentCoverArt {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 10px;
+    transition: background-image 1s ease-in-out;
+}
+
+.watermark {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    height: 80%;
+    background: url('') no-repeat center center / contain;
+    opacity: 0.9;
+    z-index: 4;
+}
+
+/* INFO CURRENT SONG */
+.info-current-song {
+    text-align: center;
+    margin-bottom: 20px;
+    padding: 0 10px;
+    flex-shrink: 0; /* Evita que este elemento se encoja */
+}
+
+.info-current-song h3 {
+    margin: 5px 0;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+}
+
+#currentSong {
+    font-size: 1.8em;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+#currentArtist {
+    font-size: 1.2em;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+/* PLAY/PAUSE BUTTON */
+.play-pause {
+    margin-bottom: 20px;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.btn-play {
+    background-color: white;
+    border: none;
+    color: black;
+    padding: 10px 30px;
+    font-size: 1.2em;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 30px;
+    transition: transform .2s ease, box-shadow .2s ease;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 100px;
+}
+
+.btn-play:focus { outline: none; }
+.btn-play:hover {
+    transform: scale(2.05);
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.4);
+}
+
+#playerButton {
+    margin-right: 10px;
+    font-size: 1em;
+}
+
+/* VOLUME CONTROL */
+.volume-control {
+    display: none;
+    width: 100%;
+    margin-bottom: 20px;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-shrink: 0;
+}
+
+.volume-icon i {
+    font-size: 0.9em;
+    cursor: pointer;
+}
+
+.volume-slide {
+    flex-grow: 2;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+input[type=range] {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 5px;
+    background: #fefefe;
+    outline: none;
+    opacity: 0.7;
+    transition: opacity .15s ease-in-out;
+}
+
+input[type=range]:hover {
+    opacity: 1;
+}
+
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #00E1E7;
+    cursor: grab;
+    box-shadow: 0 0 5px rgba(0,0,0,0.5);
+}
+
+input[type=range]::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #00E1E7;
+    cursor: grab;
+    box-shadow: 0 0 5px rgba(0,0,0,0.5);
+}
+input[type=range]::-ms-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #00E1E7;
+    cursor: grab;
+    box-shadow: 0 0 5px rgba(0,0,0,0.5);
+}
+
+/* LYRICS LINK */
+.call-lyrics {
+    text-align: center;
+    margin-bottom: 20px;
+    flex-shrink: 0;
+}
+
+.lyrics {
+    display: inline-block;
+    padding: 8px 15px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: #fefefe;
+    font-size: 0.9em;
+    font-weight: 400;
+    transition: background-color .3s ease;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.lyrics:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #fefefe;
+    text-decoration: none;
+}
+.lyrics[data-toggle]:hover {
+    cursor: pointer;
+}
+
+/* MODAL LYRICS */
+.modal-content {
+    background-color: rgba(0, 0, 0, 0.9);
+    color: #fefefe;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.7);
+}
+
+.modal-header, .modal-footer {
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.modal-title {
+    color: #00E1E7;
+}
+
+.modal-body {
+    text-align: center;
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+.modal-footer .btn {
+    background-color: #00E1E7;
+    color: white;
+    border: none;
+    border-radius: 20px;
+}
+
+.modal-footer .btn:hover {
+    background-color: #00b3b8;
+}
+
+.close {
+    color: #fefefe;
+    opacity: 1;
+    text-shadow: none;
+}
+.close:hover {
+    color: #00E1E7;
+    opacity: 0.8;
+}
+
+/* HISTORIC SECTION */
+.historic {
+    width: 100%;
+    margin-top: 30px;
+    padding: 0 15px;
+    box-sizing: border-box;
+    flex-shrink: 0;
+}
+
+.historic h2 {
+    color: #fefefe;
+    border-bottom: 2px solid #00E1E7;
+    padding-bottom: 5px;
+    font-size: 1.3em;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.historic article {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.historic .cover-historic {
+    width: 80px;
+    height: 80px;
+    flex-shrink: 0;
+    margin-right: 15px;
+    border-radius: 5px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: background-image 0.5s ease-in-out;
+    background-image: url('https://primerastereo.netlify.app/NewLogo-Primera.png'); /* */
+}
+
+.historic .music-info {
+    flex-grow: 1;
+    color: white;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.historic .music-info .song {
+    font-weight: bold;
+    font-size: 1.1em;
+    text-transform: uppercase;
+    margin-bottom: 3px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.historic .music-info .artist {
+    font-size: 0.9em;
+    text-transform: capitalize;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* BOOTSTRAP OVERRIDES / RESPONSIVE ADJUSTMENTS */
+
+/* Ajustes para tabletas y móviles en horizontal */
+@media (min-width: 576px) {
+    .volume-control {
+        display: flex;
+    }
+}
+
+/* Medias queries para el reproductor */
+@media (min-width: 768px) { /* Tablets y superiores (modo horizontal para celulares grandes, tablets) */
+    .web-player {
+        flex-direction: row; /* Carátula e info lado a lado */
+        align-items: flex-start; /* Alinea los elementos al inicio */
+        text-align: left;
+        justify-content: center; /* Centra el bloque de carátula e info */
+    }
+
+    .web-player > .col-12.col-md-5 { /* Columna de la carátula */
+        flex: 0 0 auto;
+        width: 100%; /* Permite que tome el ancho completo hasta el max-width */
+        max-width: 320px; /* Tamaño máximo para la carátula */
+        margin-right: 30px; /* Espacio entre carátula y el resto */
+    }
+    .web-player > .ml-md-auto.col-md-6 { /* Columna de la info y controles */
+        flex: 1 1 auto; /* Permite que esta columna ocupe el espacio restante */
+    }
+
+    .info-current-song {
+        text-align: left;
+        margin-top: 0;
+    }
+    
+    #currentSong {
+        font-size: 2.5em;
+    }
+    #currentArtist {
+        font-size: 1.5em;
+    }
+
+    .play-pause {
+        text-align: left;
+        margin-top: 30px;
+    }
+    .volume-control {
+        justify-content: flex-start;
+    }
+    .historic article {
+        width: 48%; /* Dos columnas en desktop */
+        margin-right: 2%; /* Espacio entre columnas */
+        display: inline-flex;
+        vertical-align: top;
+    }
+    .historic article:nth-child(even) {
+        margin-right: 0;
+    }
+}
+
+/* Ajustes específicos para pantallas de notebook y desktop */
+@media (min-width: 992px) { /* Laptops y desktops */
+    /* Puedes añadir más ajustes finos aquí si es necesario para pantallas muy grandes */
+}
+
+@media (min-width: 1200px) { /* Extra large desktops */
+    /* Puedes añadir más ajustes finos aquí si es necesario para pantallas muy grandes */
+}
+
+/* Botón de play/pause específico */
+#buttonPlay {
+    padding-left: 10px;
+}
+#playerButton {
+    color: black;
+}
+.play-pause i {
+    cursor: pointer;
+}
+.btn-play {
+    background-color: white;
+    border: none;
+    color: black;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 20px;
+    width: auto;
+    transition: transform .2s;
+    box-shadow: 1px 3px #30303022;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-play:focus {outline:0;}
+
+.btn-play:hover {
+    box-shadow: 1px 5px #30303022;
+    transform: scale(1.1);
+}
+
+.close{
+    color: white;
+}
+}
