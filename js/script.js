@@ -320,7 +320,7 @@ function handleDeezerResponse(data, song) {
     } else {
         // Caso não haja dados ou a lista de dados esteja vazia,
         // defina a capa padrão
-        var defaultArtworkUrl = 'http://primerastereo.infy.uk/NewLogo-Primera.png';
+        var defaultArtworkUrl = 'https://primerastereo.netlify.app/NewLogo-Primera.png';
 
         coverArt.style.backgroundImage = 'url(' + defaultArtworkUrl + ')';
         coverBackground.style.backgroundImage = 'url(' + defaultArtworkUrl + ')';
@@ -538,3 +538,4 @@ function intToDecimal(vol) {
 function decimalToInt(vol) {
     return vol * 100;
 }
+
