@@ -12,7 +12,7 @@ const URL_STREAMING = 'https://usa7.fastcast4u.com/proxy/primerastereo';
 const url = 'http://usa7.fastcast4u.com:5388/currentmetadata?sid=1';
 
 // Visit https://api.vagalume.com.br/docs/ to get your API key
-const API_KEY = "18fe07917957c289983464588aabddfb";
+const API_KEY = "https://usa7.fastcast4u.com/proxy/primerastereo/stream";
 
 // Variable to control history display: true = display / false = hides
 let showHistory = true; 
@@ -538,6 +538,7 @@ function intToDecimal(vol) {
 function decimalToInt(vol) {
     return vol * 100;
 }
+
 
 
 
