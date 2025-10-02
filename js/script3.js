@@ -1,7 +1,7 @@
 const RADIO_NAME = 'PRIMERA STEREO Radio Online';
 const URL_STREAMING = 'https://usa7.fastcast4u.com/proxy/primerastereo';
 const NOWPLAYING_TXT_URL = 'https://stream.zeno.fm/nowplaying.txt';
-const ZENO_API_URL = 'https://usa7.fastcast4u.com/proxy/primerastereo/stream';
+const ZENO_API_URL = 'https://twj.es/radio_info/?radio_url=http://usa7.fastcast4u.com:5388/stream';
 const API_KEY = "18fe07917957c289983464588aabddfb";
 const DEFAULT_COVER_ART = 'images/Nuevo Logo.png'; 
 
