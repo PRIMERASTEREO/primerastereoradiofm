@@ -9,7 +9,7 @@ const URL_STREAMING = 'https://usa7.fastcast4u.com/proxy/primerastereo';
 // For example, if the mount point is 'yn65fsaurfhvv/source',
 // the API link will be 'https://api.zeno.fm/mounts/metadata/subscribe/yn65fsaurfhvv'.
 
-const url = 'https://usa7.fastcast4u.com/proxy/primerastereo';
+const url = 'http://usa7.fastcast4u.com:5388/currentmetadata?sid=1';
 
 // Visit https://api.vagalume.com.br/docs/ to get your API key
 const API_KEY = "18fe07917957c289983464588aabddfb";
@@ -538,5 +538,6 @@ function intToDecimal(vol) {
 function decimalToInt(vol) {
     return vol * 100;
 }
+
 
 
