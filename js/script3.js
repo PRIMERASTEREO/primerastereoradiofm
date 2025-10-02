@@ -2,7 +2,7 @@ const RADIO_NAME = 'PRIMERA STEREO Radio Online';
 const URL_STREAMING = 'https://usa7.fastcast4u.com/proxy/primerastereo';
 const NOWPLAYING_TXT_URL = 'http://usa7.fastcast4u.com:5388/currentmetadata?sid=1';
 const ZENO_API_URL = '';
-const API_KEY = "";
+const API_KEY = "https://usa7.fastcast4u.com/proxy/primerastereo/stream";
 const DEFAULT_COVER_ART = 'images/Nuevo Logo.png'; 
 
 let showHistory = true;
