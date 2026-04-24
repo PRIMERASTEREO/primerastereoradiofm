@@ -1,11 +1,11 @@
 {
-  "name": "Radio Freestyledjs",
-  "short_name": "Freestyledjs",
-  "start_url": "/",
+  "name": "PRIMERA STEREO 📻 Radio Online",
+  "short_name": "PRIMERA STEREO 📻 Radio Online",
+  "start_url": "https://primerastereo.stream.laut.fm/primerastereo",
   "display": "standalone",
   "icons": [
     {
-      "src": "/logo%20radio/FREESTAYLE-DJS-SOMBRA-1.png",
+      "src": "https://primerastereofm.netlify.app//images/PSRO5-8.png",
       "sizes": "192x192",
       "type": "image/png"
     }
