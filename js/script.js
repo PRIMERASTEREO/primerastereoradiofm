@@ -1,18 +1,18 @@
 const RADIO_NAME = 'PRIMERA STEREO Radio Online';
 
 // Change Stream URL Here, Supports, ICECAST, ZENO, SHOUTCAST, RADIOJAR and any other stream service.
-const URL_STREAMING = 'https://usa7.fastcast4u.com/proxy/primerastereo';
+const URL_STREAMING = 'https://primerastereo.stream.laut.fm/primerastereo';
 
 // You can find the mount point in the Broadcast Settings.
 // To generate the Zeno Radio API link from the mount point,
 // exclude the '/source' part and append the remaining mount point to the base URL of the API.
 // For example, if the mount point is 'yn65fsaurfhvv/source',
-// the API link will be 'https://api.zeno.fm/mounts/metadata/subscribe/yn65fsaurfhvv'.
+// the API link will be 'https://api.laut.fm/station/primerastereo/current_song'.
 
-const url = 'http://usa7.fastcast4u.com:5388/currentmetadata?sid=1';
+const url = 'https://api.laut.fm/station/primerastereo/current_song';
 
 // Visit https://api.vagalume.com.br/docs/ to get your API key
-const API_KEY = "https://usa7.fastcast4u.com/proxy/primerastereo/stream";
+const API_KEY = "https://primerastereo.stream.laut.fm/primerastereo";
 
 // Variable to control history display: true = display / false = hides
 let showHistory = true; 
