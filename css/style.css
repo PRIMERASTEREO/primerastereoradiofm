@@ -371,7 +371,7 @@ input[type=range]::-ms-thumb {
     border: 1px solid rgba(255, 255, 255, 0.3);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     transition: background-image 0.5s ease-in-out;
-    background-image: url('https://primerastereo.netlify.app/NewLogo-Primera.png'); /* */
+    background-image: url('https://primerastereofm.netlify.app//images/PSRO5-8.png'); /* */
 }
 
 .historic .music-info {
